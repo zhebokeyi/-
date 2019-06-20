@@ -1,0 +1,142 @@
+一、基础知识:
+1.启动一个vue实例-应用
+   main.js
+   new Vue({
+     el:"#app",
+     router,//注册一个router
+     store//注册一个store
+   })
+2.组件生命周期
+
+3.vue-cli 单文件组件--每个文件是一个组件，每个组件都是一个隔离作用域
+
+export default {
+  name:"",
+  template:"#id",//vue-cli 分离
+  data(){},//数据，data数据变化，重新render
+  methods:{},//事件处理函数
+  computed:{},//可以当做属性使用方法get / set ,读缓存
+  filters:{},//对数据进行格式化 数据| 过滤器
+  directives:{}, //自定义指令  v- 属性
+  watch:{}, //当数据被改变
+  components:{}, //引入局部组件
+  beforeCreate(){},
+  crated(){//ajax-->data里面的数据},
+  beforeMount(){},
+  mounted(){//dom相关的ajax},
+  beforeUpdate(){},
+  updated(){},
+  beforeDestroy(){},
+  destroyed(){}   
+}
+
+
+4.v指令
+
+
+二、Vue预定义变量
+所有的组件对象，都可以访问这些预定义变量
+Vue.prototype
+
+
+$parent 父组件对象
+
+$children 子组件对象组成的数组
+
+$on 绑定自定义事件
+
+$emit 触发自定义事件
+
+$refs ref值对应的组件对象组成对象
+
+$props 组件属性（this不仅代理了data 上数据，还代理了$props上数据）
+
+$event 事件对象
+
+$watch 监控
+
+$http ajax对象 --不维护
+
+$router 
+
+$route
+
+$store 
+
+
+三、组件通信
+1.父组件通过props向子组件传递数据-->单向数据流
+
+2.通过子组件的props，改变父组件的数据---对象（引用类型，存储、赋值、返回值都是地址）
+
+
+   
+3.事件订阅:在哪个组件上绑定的事件，必须在哪个组件上触发；想要给谁传数据，处理函数就在谁上定义
+
+   （1）子组件通过事件订阅向父组件传递数据
+   --父组件中， 绑定子组件的自定义事件   
+     子组件 触发自定义事件--自动调用自定义事件处理函数（父组件中函数）
+    
+   写法一:
+      父组件:
+       给子组件绑定自定义事件
+      <子组件 @自定义事件="父组件处理函数">
+
+      子组件: this子组件
+    
+          this.$emit("自定义事件名","数据")
+
+   写法二:
+      父组件中:
+           mounted(){
+             this.$refs.子组件的ref值.$on("自定义事件",(msg)=>{this.message=msg;})
+           }
+
+      子组件: this子组件
+    
+          this.$emit("自定义事件名","数据")
+
+   (2)子组件之间的通信
+     <1>将父组件App当做公共bus
+        思路:在Child1中给，父组件App绑定事件，处理函数（Child1处理）
+
+        Child1 接收数据
+          mouted(){
+              this.$parent.$on("myEvent",(msg)=>{})
+           }
+        Child2 触发事件
+           this.$parent.$emit("myEvent","传递给Child1数据")
+
+      <2>Child1组件绑定自定义事件，在Child2中触发Child1上自定义事件
+       问题:如何在Child2中获取Child对象
+              this.$parent.$refs.
+
+3.通过slot插槽作用域，向slot-scope父组件传值
+     
+4.组件通信--大型项目--vuex
+
+
+四、vue-router
+
+五、element-ui vue组件库
+
+
+-------------------------------------------
+
+vue全家桶:
+
+  vue2+vue-router+vuex+element-ui
+
+
+
+
+
+
+
+
+    
+
+
+
+
+     
